@@ -1,29 +1,19 @@
 {{
   config(
-    materialized='view'
+    materialized='table'
   )
 }}
 
 with customers as (
 
-    select
-        id as customerid,
-        firstname,
-        lastname
-
-    from public.customers
+    select * from {{ ref('stg_customers') }}
 
 ),
 
 orders as (
 
-    select
-        id as orderid,
-        userid as customerid,
-        orderdate,
-        status
+    select * from {{ ref('stg_orders') }}
 
-    from public.orders
 
 ),
 
